@@ -1,6 +1,6 @@
 # Volatility Pairs Trading Strategy: Nifty & Bank Nifty
 
-This repository contains a practical implementation of a volatility pairs trading strategy for Nifty and Bank Nifty index options. The approach is based on statistical arbitrage, aiming to profit from temporary divergences in implied volatility between these two highly correlated indices.
+This repository contains a practical implementation of a volatility pairs trading strategy for Nifty and Bank Nifty index Futures . The approach is based on statistical arbitrage, aiming to profit from temporary divergences in implied volatility between these two highly correlated indices.
 
 
 ## Data
