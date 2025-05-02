@@ -1,7 +1,7 @@
 # Volatility Pairs Trading Strategy: Nifty & Bank Nifty
 
 This repository contains a practical implementation of a volatility pairs trading strategy for Nifty and Bank Nifty index options. The approach is based on statistical arbitrage, aiming to profit from temporary divergences in implied volatility between these two highly correlated indices.
----
+
 
 ## Data
 
@@ -9,17 +9,15 @@ This repository contains a practical implementation of a volatility pairs tradin
 - **Fields**: Nifty IV, Bank Nifty IV, Time To Expiry (TTE)
 - **Frequency**: 1-minute bars
 
----
 
 ## Strategy Models
 
 ### Base Model
-
 **Core Logic:**
 - Calculates the spread: `spread = banknifty_iv - nifty_iv`
 - Computes P&L: `pnl = spread * (tte ** 0.7)`
 - Uses a rolling z-score of the spread to generate trading signals.
-- Entry/exit thresholds and lookback window are optimized by grid search.
+- `Entry/Exit` thresholds and lookback window are optimized by grid search.
 
 **Code Analysis:**
 - **Data Loading:** Reads parquet data, converts index to datetime, forward-fills missing values.
@@ -47,6 +45,10 @@ This repository contains a practical implementation of a volatility pairs tradin
 
 ---
 
+### Cumulative PnL - Base Model
+
+![img.png](./results/base-model.png)
+
 ### Advanced Model
 
 **Core Logic:**
@@ -56,10 +58,6 @@ This repository contains a practical implementation of a volatility pairs tradin
 - Trades only during 10:00 to 15:00 IST.
 
 **Code Analysis:**
-- **Data Handling:**  
-  - Loads data as float32 for memory efficiency  
-  - Interpolates missing values  
-  - Uses datetime index
 - **Cointegration:**  
   - Linear combination of Nifty and Bank Nifty IVs (coefficients from statistical analysis)
   - Produces a mean-reverting spread
@@ -76,19 +74,19 @@ This repository contains a practical implementation of a volatility pairs tradin
   - Trades only during 10:00-15:00 (hour mask)
   - Filters trades by volatility regime
   - Dynamic position management (long, short, flat)
-- **Performance Analytics:**  
-  - Computes Sharpe, drawdown, win rate, trade count
-  - Uses vectorized operations for speed
-  - Explicit garbage collection for memory management
+  
 - **Risk Management:**  
   - Regime-specific exposure limits
   - Volatility-based position filtering
   - No stop-loss, but more robust to changing market conditions
 
 **Technical Details:**
-- Uses efficient data types (`float32`, `int8`)
 - Caches grid search results to avoid recomputation
 - Modular code for easy parameter tuning
+
+### Cumulative PnL - Advanced Model
+
+![image.jpg](./results/adv-model.png)
 
 ---
 
@@ -114,12 +112,10 @@ This repository contains a practical implementation of a volatility pairs tradin
 └── grid_search_results.pkl  # Parameter optimization cache
 ```
 
----
-
 ## Performance Summary
 
 | Metric                   | Base Model | Advanced Model |
-|--------------------------|------------|---------------|
+|--------------------------|:-:|:-:|
 | Absolute P&L             | 57,293.90  | 2,497,676.25  |
 | Sharpe Ratio             | 5.02       | 3.91          |
 | Max Drawdown             | -6,770.12  | -301,205.50   |
