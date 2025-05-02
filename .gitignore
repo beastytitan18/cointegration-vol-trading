@@ -1,2 +1,5 @@
 data.parquet
 grid_search_results.pkl
+*.aux
+*.log
+!main.pdf  
