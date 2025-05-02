@@ -74,15 +74,13 @@ This repository contains a practical implementation of a volatility pairs tradin
   - Trades only during 10:00-15:00 (hour mask)
   - Filters trades by volatility regime
   - Dynamic position management (long, short, flat)
-  
+
 - **Risk Management:**  
   - Regime-specific exposure limits
   - Volatility-based position filtering
   - No stop-loss, but more robust to changing market conditions
 
-**Technical Details:**
-- Caches grid search results to avoid recomputation
-- Modular code for easy parameter tuning
+
 
 ### Cumulative PnL - Advanced Model
 
@@ -125,6 +123,22 @@ This repository contains a practical implementation of a volatility pairs tradin
 | Avg. Trade Duration (h)  | 0.71       | 0.87          |
 
 ---
+## Documentation
+The full analysis is available in two formats:
+- `report.typ`: Source file in Typst format
+- `report.pdf`: Rendered PDF output
+
+### Requirements for editing documentation
+- Typst (install via `brew install typst`)
+
+### Building the documentation
+```bash
+# Compile once
+typst compile report.typ report.pdf
+
+# Watch for changes
+typst watch report.typ report.pdf
+```
 
 ## Assumptions & Limitations
 
